@@ -22,7 +22,7 @@ Each project is designed as an architectural challenge with documented design pa
 
 ---
 
-## 📈 Progressive Game Projects
+## 📈 Game Projects
 
 | # | Project Name | Key Focus & Skills | Documentation |
 |:---:|---|---|:---:|
