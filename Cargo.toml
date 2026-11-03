@@ -1,0 +1,3 @@
+[workspace]
+members = ["projects/01-pong"]
+resolver = "3"
