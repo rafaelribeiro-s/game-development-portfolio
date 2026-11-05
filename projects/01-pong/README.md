@@ -28,6 +28,14 @@ The player competes against a CPU-controlled opponent across three difficulty le
 - **Visual Design:** Monochrome 1-bit-inspired presentation and pixel-art assets.
 - **Frame-Rate Independence:** Delta-time-based gameplay updates.
 
+## 🤖 Development Process & AI Collaboration
+
+This project was architected, designed, and directed independently, utilizing Generative AI as a pair-programming assistant throughout the development process.
+
+- **My Role:** Game design, software architecture, art and asset creation, code refactoring, manual debugging, and feature integration.
+- **AI's Role:** Assisting with initial code generation, suggesting structural approaches, and accelerating rapid prototyping iterations.
+- **Workflow & Control:** All AI suggestions were actively reviewed, tested, modified, and refined to align with the project's technical architecture and performance requirements.
+
 ## 🛠️ Technology Stack
 
 | Technology       | Purpose                           |
