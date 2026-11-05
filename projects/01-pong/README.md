@@ -46,7 +46,6 @@ The player competes against a CPU-controlled opponent across three difficulty le
 | ----- | ---------------------------------- |
 | ↑ / ↓ | Navigate menus and move the paddle |
 | ← / → | Adjust selected volume in Settings |
-| Space | Serve the ball                     |
 | Enter | Confirm menu selection             |
 | Esc   | Pause, go back, or cancel          |
 
