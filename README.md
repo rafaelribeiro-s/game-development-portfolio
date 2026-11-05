@@ -24,9 +24,9 @@ Each project is designed as an architectural challenge with documented design pa
 
 ## 📈 Game Projects
 
-| # | Project Name | Technologies | Key Focus & Skills | Status |
+| # | Project Name | Technologies | Key Focus & Skills | Documentation |
 |:---:|---|---|---|:---:|
-| **01** | [Pong — A Solo Game](https://github.com/rafaelribeiro-s/game-development-portfolio/tree/main/projects/01-pong) | Rust, Macroquad, Rodio | Game Architecture, State Management, Physics & Collision Detection, CPU Opponent AI, Audio Management, Configurable Settings | Completed |
+| **01** | `Pong` | Rust, Macroquad, Rodio | Game Architecture, State Management, Physics & Collision Detection, CPU Opponent AI, Audio Management, Configurable Settings | [Project Documentation](https://github.com/rafaelribeiro-s/game-development-portfolio/tree/main/projects/01-pong) |
 
 Each project has its own directory containing its source code, assets, and project-specific documentation.
 
