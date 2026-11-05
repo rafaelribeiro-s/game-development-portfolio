@@ -144,7 +144,4 @@ Game Development Portfolio
 
 - GitHub: [rafaelribeiro-s](https://github.com/rafaelribeiro-s)
 - Repository: [Game Development Portfolio](https://github.com/rafaelribeiro-s/game-development-portfolio)
-
----
-
-*Built with Rust, Macroquad, and a focus on practical game engineering.*
+- Project Documentation: [Game Development Portfolio Wiki](https://github.com/rafaelribeiro-s/game-development-portfolio/wiki)
