@@ -24,24 +24,29 @@ Each project is designed as an architectural challenge with documented design pa
 
 ## 📈 Game Projects
 
-| # | Project Name | Key Focus & Skills | Documentation |
-|:---:|---|---|:---:|
-| **01** | `Game-Prototype` | 2D Physics, Paddle & Ball Collisions, AI Opponent, Game State Machine, Delta Time | Work in Progress|
+| # | Project Name | Technologies | Key Focus & Skills | Status |
+|:---:|---|---|---|:---:|
+| **01** | [Pong — A Solo Game](https://github.com/rafaelribeiro-s/game-development-portfolio/tree/main/projects/01-pong) | Rust, Macroquad, Rodio | Game Architecture, State Management, Physics & Collision Detection, CPU Opponent AI, Audio Management, Configurable Settings | Completed |
 
+Each project has its own directory containing its source code, assets, and project-specific documentation.
+
+For detailed technical documentation, visit the [**Game Development Portfolio Wiki**](https://github.com/rafaelribeiro-s/game-development-portfolio/wiki).
 
 ---
 
 ## 📂 Repository Architecture
 
 ```text
-game-development-portfolio/projects/
-├── 01-game-prototype/
-│   ├── assets/
-│   ├── src/
-│   └── README.md
-└── 02-next-game-project/
-    └── README.md
+game-development-portfolio/
+└── projects/
+    ├── 01-pong/
+    └── 02-work-in-progress/
 ```
+
+The repository is organized around independent game projects. Each project maintains its own source code, assets, dependencies, and README, making it easier to develop, maintain, and document multiple games within a single portfolio.
+
+The root README provides an overview of the entire portfolio, while each project's README and the repository Wiki provide more detailed information about its implementation and development.
+
 ---
 
 ## 🎯 Portfolio Approach
