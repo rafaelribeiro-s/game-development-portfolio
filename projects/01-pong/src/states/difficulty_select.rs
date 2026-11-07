@@ -4,6 +4,8 @@ use macroquad::prelude::*;
 
 use crate::config::{SCREEN_HEIGHT, SCREEN_WIDTH};
 
+use crate::audio::manager::AudioManager;
+
 // --- Difficulty Options ---
 
 const MENU_FONT_SIZE: u16 = 16;
@@ -70,10 +72,12 @@ impl DifficultySelect {
 
     // --- Public API ---
 
-    pub fn update(&mut self) -> Option<DifficultySelectAction> {
+    pub fn update(&mut self, audio_manager: &AudioManager) -> Option<DifficultySelectAction> {
         if is_key_pressed(KeyCode::Escape) {
             return Some(DifficultySelectAction::Back);
         }
+
+        let previous_option = self.selected_option;
 
         if is_key_pressed(KeyCode::Up) {
             self.selected_option =
@@ -84,7 +88,14 @@ impl DifficultySelect {
             self.selected_option = (self.selected_option + 1) % Difficulty::ALL.len();
         }
 
+        // Play navigation sound only when the selection changes.
+        if self.selected_option != previous_option {
+            audio_manager.play_brick();
+        }
+
         if is_key_pressed(KeyCode::Enter) {
+            audio_manager.play_victory();
+
             return Some(DifficultySelectAction::Selected(
                 Difficulty::ALL[self.selected_option],
             ));
@@ -137,7 +148,7 @@ impl DifficultySelect {
             };
 
             draw_text_ex(
-                &format!("{indicator}{}", difficulty.label()),
+                format!("{indicator}{}", difficulty.label()),
                 block_x,
                 y,
                 TextParams {

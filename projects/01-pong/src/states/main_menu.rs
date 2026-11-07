@@ -2,6 +2,7 @@
 
 use macroquad::prelude::*;
 
+use crate::audio::manager::AudioManager;
 use crate::config::{SCREEN_HEIGHT, SCREEN_WIDTH};
 
 // --- Constants ---
@@ -56,8 +57,9 @@ impl MainMenu {
 
     // --- Input Handling ---
 
-    pub fn update(&mut self) -> Option<MainMenuAction> {
+    pub fn update(&mut self, audio_manager: &AudioManager) -> Option<MainMenuAction> {
         let option_count = MainMenuAction::ALL.len();
+        let previous_option = self.selected_option;
 
         if is_key_pressed(KeyCode::Up) {
             self.selected_option = (self.selected_option + option_count - 1) % option_count;
@@ -65,6 +67,11 @@ impl MainMenu {
 
         if is_key_pressed(KeyCode::Down) {
             self.selected_option = (self.selected_option + 1) % option_count;
+        }
+
+        // Play navigation sound when the selected option changes.
+        if self.selected_option != previous_option {
+            audio_manager.play_brick();
         }
 
         if is_key_pressed(KeyCode::Enter) {
@@ -115,7 +122,7 @@ impl MainMenu {
             let indicator = self.selection_indicator(index);
 
             draw_text_ex(
-                &format!("{indicator}{}", option.label()),
+                format!("{indicator}{}", option.label()),
                 block_x,
                 y,
                 TextParams {

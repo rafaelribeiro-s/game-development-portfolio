@@ -138,7 +138,7 @@ async fn main() {
             GameState::MainMenu => {
                 audio_manager.play_music();
 
-                if let Some(action) = main_menu.update() {
+                if let Some(action) = main_menu.update(&audio_manager) {
                     match action {
                         MainMenuAction::PlayGame => {
                             state_manager.change(GameState::DifficultySelect);
@@ -161,7 +161,7 @@ async fn main() {
             }
 
             GameState::DifficultySelect => {
-                if let Some(action) = difficulty_select.update() {
+                if let Some(action) = difficulty_select.update(&audio_manager) {
                     match action {
                         DifficultySelectAction::Selected(difficulty) => {
                             let cpu_config = difficulty.cpu_config();
@@ -292,9 +292,33 @@ async fn main() {
             GameState::Quit => break,
         }
 
+        // --- Visual Effects Update ---
+
+        let mut shake_offset = Vec2::ZERO;
+
+        if let Some(gameplay) = &mut gameplay {
+            gameplay.update_effects();
+
+            if matches!(
+                state_manager.current(),
+                GameState::Gameplay | GameState::PauseMenu | GameState::GameOver
+            ) {
+                shake_offset = gameplay.screen_shake_offset();
+            }
+        }
+
         // --- Virtual Rendering ---
 
-        set_camera(&camera);
+        let frame_camera = Camera2D {
+            render_target: Some(render_target.clone()),
+            zoom: camera.zoom,
+            target: camera.target,
+            offset: camera.offset + shake_offset,
+            rotation: camera.rotation,
+            ..Default::default()
+        };
+
+        set_camera(&frame_camera);
         clear_background(BLACK);
 
         match state_manager.current() {

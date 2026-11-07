@@ -145,7 +145,7 @@ impl PauseMenu {
             };
 
             draw_text_ex(
-                &format!("{indicator}{option}"),
+                format!("{indicator}{option}"),
                 options_x,
                 y,
                 TextParams {

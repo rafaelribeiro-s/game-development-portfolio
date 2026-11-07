@@ -129,7 +129,7 @@ impl Settings {
         let prefix = if is_selected { ">" } else { " " };
 
         draw_text_ex(
-            &format!("{prefix} {label}"),
+            format!("{prefix} {label}"),
             170.0,
             y,
             TextParams {
@@ -159,7 +159,7 @@ impl Settings {
 
     fn draw_volume_percentage(&self, volume: u8, bar_x: f32, bar_width: f32, bar_y: f32) {
         draw_text_ex(
-            &format!("{volume}%"),
+            format!("{volume}%"),
             bar_x + bar_width + 15.0,
             bar_y + BLOCK_SIZE,
             TextParams {

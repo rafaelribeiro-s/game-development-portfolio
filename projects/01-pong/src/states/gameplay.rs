@@ -4,10 +4,13 @@ use macroquad::prelude::*;
 
 use crate::audio::manager::AudioManager;
 use crate::game::ball::Ball;
+use crate::game::ball_trail::BallTrail;
 use crate::game::difficulty::CpuDifficultyConfig;
 use crate::game::paddle::Paddle;
+use crate::game::particles::ParticleSystem;
 use crate::game::round::RoundState;
 use crate::game::score::Score;
+use crate::game::screen_shake::ScreenShake;
 
 // --- Gameplay Constants ---
 
@@ -15,6 +18,8 @@ const SCREEN_WIDTH: f32 = 800.0;
 const SCREEN_HEIGHT: f32 = 600.0;
 
 const COUNTDOWN_DURATION: f32 = 3.0;
+const SERVE_PROMPT: &str = "[PRESS ENTER TO SERVE BALL]";
+const SERVE_PROMPT_FONT_SIZE: u16 = 12;
 
 const CPU_SIDE_THRESHOLD: f32 = 300.0;
 const CPU_TARGET_OFFSET: f32 = 4.0;
@@ -33,6 +38,8 @@ const SCORE_FONT_SIZE: u16 = 32;
 const PLAYER_SCORE_X: f32 = 230.0;
 const CPU_SCORE_X: f32 = 538.0;
 
+const SHAKE_MIN_SPEED: f32 = 350.0;
+
 // --- Gameplay ---
 
 pub struct Gameplay {
@@ -48,6 +55,10 @@ pub struct Gameplay {
     cpu_reaction_timer: f32,
     cpu_target_y: f32,
     font: Font,
+    particles: ParticleSystem,
+    screen_shake: ScreenShake,
+    ball_trail: BallTrail,
+    ball_trail_active: bool,
 }
 
 impl Gameplay {
@@ -70,13 +81,17 @@ impl Gameplay {
             cpu_paddle: Paddle::new(cpu_texture, cpu_position.x, cpu_position.y),
             ball: Ball::new(ball_texture),
             score: Score::new(),
-            round_state: RoundState::Playing,
+            round_state: RoundState::WaitingForServe,
             countdown_timer: 0.0,
             serve_to_right: true,
             cpu_config,
             cpu_reaction_timer: 0.0,
             cpu_target_y: Paddle::cpu_start_position().y + 24.0,
             font,
+            particles: ParticleSystem::new(),
+            screen_shake: ScreenShake::new(),
+            ball_trail: BallTrail::new(),
+            ball_trail_active: false,
         }
     }
 
@@ -84,8 +99,18 @@ impl Gameplay {
 
     pub fn update(&mut self, audio_manager: &AudioManager) {
         match self.round_state {
-            RoundState::Playing => self.update_playing(audio_manager),
-            RoundState::Countdown => self.update_countdown(),
+            RoundState::WaitingForServe => {
+                self.update_waiting_for_serve();
+            }
+
+            RoundState::Playing => {
+                self.update_playing(audio_manager);
+            }
+
+            RoundState::Countdown => {
+                self.update_countdown();
+            }
+
             RoundState::MatchOver => {}
         }
     }
@@ -95,8 +120,16 @@ impl Gameplay {
         self.draw_game_objects();
         self.draw_score();
 
-        if self.round_state == RoundState::Countdown {
-            self.draw_countdown();
+        match self.round_state {
+            RoundState::WaitingForServe => {
+                self.draw_serve_prompt();
+            }
+
+            RoundState::Countdown => {
+                self.draw_countdown();
+            }
+
+            _ => {}
         }
     }
 
@@ -119,6 +152,15 @@ impl Gameplay {
 
         self.update_cpu();
         self.update_ball(audio_manager);
+        self.ball_trail
+            .update(self.ball.position(), self.ball_trail_active);
+    }
+
+    fn update_waiting_for_serve(&mut self) {
+        if is_key_pressed(KeyCode::Enter) {
+            self.ball.launch(self.serve_to_right);
+            self.round_state = RoundState::Playing;
+        }
     }
 
     fn update_cpu(&mut self) {
@@ -154,6 +196,21 @@ impl Gameplay {
 
         if wall_collision {
             audio_manager.play_wall();
+
+            let ball_speed = self.ball.velocity().length();
+
+            self.ball_trail_active = ball_speed >= SHAKE_MIN_SPEED;
+
+            if self.ball_trail_active {
+                let intensity = if ball_speed >= 420.0 { 1.00 } else { 0.75 };
+
+                self.screen_shake.trigger(intensity);
+
+                let ball_position = self.ball.position();
+                let particle_position = ball_position + vec2(4.0, 4.0);
+
+                self.particles.emit_wall_hit(particle_position, 1.0);
+            }
         }
 
         if paddle_collision {
@@ -186,6 +243,8 @@ impl Gameplay {
         }
 
         self.prepare_next_round();
+        self.ball_trail_active = false;
+        self.ball_trail.clear();
     }
 
     fn update_countdown(&mut self) {
@@ -235,7 +294,28 @@ impl Gameplay {
     fn draw_game_objects(&self) {
         self.player_paddle.draw();
         self.cpu_paddle.draw();
+        self.particles.draw();
+        self.ball_trail.draw();
         self.ball.draw();
+    }
+
+    fn draw_serve_prompt(&self) {
+        let dimensions = measure_text(SERVE_PROMPT, Some(&self.font), SERVE_PROMPT_FONT_SIZE, 1.0);
+
+        let text_x = (SCREEN_WIDTH - dimensions.width) / 2.0;
+        let text_y = (SCREEN_HEIGHT + dimensions.height) / 2.0 - 80.0;
+
+        draw_text_ex(
+            SERVE_PROMPT,
+            text_x,
+            text_y,
+            TextParams {
+                font: Some(&self.font),
+                font_size: SERVE_PROMPT_FONT_SIZE,
+                color: WHITE,
+                ..Default::default()
+            },
+        );
     }
 
     fn draw_score(&self) {
@@ -299,5 +379,14 @@ impl Gameplay {
         let text_y = COUNTDOWN_AREA_Y + (COUNTDOWN_AREA_HEIGHT + dimensions.height) / 2.0;
 
         draw_text(&text, text_x, text_y, COUNTDOWN_FONT_SIZE, WHITE);
+    }
+
+    pub fn update_effects(&mut self) {
+        self.particles.update();
+        self.screen_shake.update();
+    }
+
+    pub fn screen_shake_offset(&self) -> Vec2 {
+        self.screen_shake.offset()
     }
 }
