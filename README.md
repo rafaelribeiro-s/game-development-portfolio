@@ -104,20 +104,15 @@ cargo fmt
 
 ## 📂 Project Structure
 
+The repository is organized around independent game projects. Each project maintains its own source code, assets, dependencies, and documentation.
+
 ```text
-<<<<<<< Updated upstream
 game-development-portfolio/
 └── projects/
     ├── 01-pong/
     └── 02-work-in-progress/
 ```
 
-The repository is organized around independent game projects. Each project maintains its own source code, assets, dependencies, and README, making it easier to develop, maintain, and document multiple games within a single portfolio.
-
-The root README provides an overview of the entire portfolio, while each project's README and the repository Wiki provide more detailed information about its implementation and development.
-
----
-=======
 01-pong/
 ├── assets/
 │   ├── audio/
@@ -132,8 +127,9 @@ The root README provides an overview of the entire portfolio, while each project
 │   └── main.rs
 ├── Cargo.toml
 └── Cargo.lock
-```
->>>>>>> Stashed changes
+
+The root README provides an overview of the entire portfolio, while each project's README and the repository Wiki provide more detailed technical documentation.
+
 
 ## 📚 Technical Documentation
 
