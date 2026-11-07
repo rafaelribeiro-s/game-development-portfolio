@@ -1,28 +1,45 @@
-# Game Development Portfolio
+# Pong — 2D Game Development Project
 
-Welcome to my hands-on game development portfolio.
+A single-player Pong implementation built with **Rust** and **Macroquad**, featuring custom gameplay mechanics, a rule-based CPU opponent, state management, audio integration, and configurable settings.
 
-This repository documents practical game development projects, case studies, and engineering prototypes focused on **Gameplay Mechanics, Physics Simulation, Artificial Intelligence, Graphics & Rendering, Audio Integration, and Performance Optimization.**
-
-Each project is designed as an architectural challenge with documented design patterns, core mechanics implementation, physics/collision validation, state management, and lessons learned.
+This project is part of my Game Development Portfolio and demonstrates practical applications of game architecture, physics simulation, collision handling, input management, and audio systems.
 
 ---
 
-## 🧠 Core Competencies & Technologies
+## 🎮 Project Overview
 
-- **Game Physics & Collision:** Rigid-Body Dynamics, AABB/Circle Collision Detection, Response Vectors, Reflection Mechanics, Velocity Scaling
+The project recreates the classic Pong experience with a minimalist monochrome visual style and a 4:3 gameplay presentation.
 
-- **Input & State Management:** Event-Driven Input Handling, Game States (Menu, Playing, Paused, GameOver), Finite State Machines (FSM)
+The player competes against a CPU-controlled opponent across three difficulty levels.
 
-- **AI & Computer Opponents:** Rule-Based AI, Predictive Tracking, Difficulty Scaling, Reaction Delay Simulation
+**Project Status:** Completed  
+**Project Type:** 2D Arcade Game  
+**Resolution:** 800 × 600  
+**Aspect Ratio:** 4:3
 
-- **Audio & Visual Feedback:** Dynamic Sound Effects, Screen Shake, Particle Systems, UI/UX State Indicators
+## 🧠 Core Features
 
-- **Performance & Optimization:** Frame-Rate Independence (`Delta Time`), Memory Management, Clean Architecture, Asset Pipelines
+- **Gameplay Mechanics:** Paddle movement, ball physics, scoring, and round progression.
+- **Collision Detection:** Paddle and wall collision handling, including substep-based updates to reduce tunneling.
+- **CPU Opponent:** Rule-based AI with Easy, Normal, and Hard difficulty levels.
+- **Game State Management:** Splash Screen, Main Menu, Difficulty Selection, Gameplay, Pause, Game Over, Credits, and Settings.
+- **Audio Integration:** Sound effects and looping background music using Rodio.
+- **Settings System:** Independent sound effects and background music volume controls, adjustable in 5% increments.
+- **Visual Design:** Monochrome 1-bit-inspired presentation and pixel-art assets.
+- **Frame-Rate Independence:** Delta-time-based gameplay updates.
 
----
+## 🛠️ Technology Stack
 
-## 📈 Game Projects
+| Technology       | Purpose                           |
+| ---------------- | --------------------------------- |
+| Rust             | Programming language              |
+| Macroquad 0.4.16 | 2D game framework and rendering   |
+| Rodio 0.21.1     | Audio playback                    |
+| Cargo            | Dependency and project management |
+| VSCodium         | Development environment           |
+| GIMP             | Asset creation and editing        |
+| Press Start 2P   | Pixel-style typography            |
+
 
 | # | Project Name | Technologies | Key Focus & Skills | Documentation |
 |:---:|---|---|---|:---:|
@@ -32,11 +49,63 @@ Each project has its own directory containing its source code, assets, and proje
 
 For detailed technical documentation, visit the [**Game Development Portfolio Wiki**](https://github.com/rafaelribeiro-s/game-development-portfolio/wiki).
 
----
+## 🕹️ Controls
 
-## 📂 Repository Architecture
+| Key   | Action                             |
+| ----- | ---------------------------------- |
+| ↑ / ↓ | Navigate menus and move the paddle |
+| ← / → | Adjust selected volume in Settings |
+| Enter | Confirm menu selection             |
+| Esc   | Pause, go back, or cancel          |
+
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Rust toolchain
+- Cargo
+- Linux, Windows, or another supported Macroquad environment
+
+### Run the Game
+
+Clone the repository:
+
+```bash
+git clone https://github.com/rafaelribeiro-s/game-development-portfolio.git
+cd game-development-portfolio
+```
+
+Run the Pong project from the workspace root:
+
+```bash
+cargo run -p pong
+```
+
+### Build and Validate
+
+Check the project:
+
+```bash
+cargo check -p pong
+```
+
+Run the tests:
+
+```bash
+cargo test -p pong
+```
+
+Format the source code:
+
+```bash
+cargo fmt
+```
+
+## 📂 Project Structure
 
 ```text
+<<<<<<< Updated upstream
 game-development-portfolio/
 └── projects/
     ├── 01-pong/
@@ -48,11 +117,55 @@ The repository is organized around independent game projects. Each project maint
 The root README provides an overview of the entire portfolio, while each project's README and the repository Wiki provide more detailed information about its implementation and development.
 
 ---
+=======
+01-pong/
+├── assets/
+│   ├── audio/
+│   ├── fonts/
+│   └── images/
+├── src/
+│   ├── audio/
+│   ├── core/
+│   ├── game/
+│   ├── graphics/
+│   ├── states/
+│   └── main.rs
+├── Cargo.toml
+└── Cargo.lock
+```
+>>>>>>> Stashed changes
 
-## 🎯 Portfolio Approach
+## 📚 Technical Documentation
 
-The projects in this repository follow a structured engineering approach:
+The project's technical case study will document the engineering process behind the implementation, including:
 
-Architect → Implement Mechanics → Physics & Collision → Polish (Audio/Juice) → Document
+- Game architecture and module responsibilities
+- Physics and collision handling
+- CPU opponent behavior and difficulty scaling
+- Finite State Machine (FSM) and state transitions
+- Audio integration and volume management
+- Testing, validation, and problem-solving decisions
 
-Each project is presented as an interactive engineering challenge rather than just a simple script, highlighting software design patterns, math applications, and problem-solving skills in game development.
+**Technical Case Study:** Documentation in progress.
+
+## 🎯 Learning Objectives
+
+This project explores practical game development concepts:
+
+- Applying Rust to interactive 2D applications
+- Organizing game systems using modular architecture
+- Implementing collision detection and response
+- Designing rule-based opponent behavior
+- Managing game states and user input
+- Integrating external audio playback
+- Validating functionality through testing
+
+## 👤 Author
+
+**Rafael Ribeiro**
+
+Game Development Portfolio
+
+- GitHub: [rafaelribeiro-s](https://github.com/rafaelribeiro-s)
+- Repository: [Game Development Portfolio](https://github.com/rafaelribeiro-s/game-development-portfolio)
+- Project Documentation: [Game Development Portfolio Wiki](https://github.com/rafaelribeiro-s/game-development-portfolio/wiki)
