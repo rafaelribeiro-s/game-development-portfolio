@@ -112,7 +112,7 @@ game-development-portfolio/
     ├── 01-pong/
     └── 02-work-in-progress/
 ```
-
+```text
 01-pong/
 ├── assets/
 │   ├── audio/
@@ -127,7 +127,7 @@ game-development-portfolio/
 │   └── main.rs
 ├── Cargo.toml
 └── Cargo.lock
-
+```
 The root README provides an overview of the entire portfolio, while each project's README and the repository Wiki provide more detailed technical documentation.
 
 
